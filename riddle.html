@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fdfaf3">
+  <title>A riddle</title>
+  <meta name="description" content="A scavenger hunt clue.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Handwriting fonts (with a graceful system fallback if these don't load) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #fdfaf3;
+      --ink: #2b2b2b;
+      --accent: #c0392b;
+      --clover: #4faf4f;
+      --clover-ink: #2f6b2f;
+      --hand: "Patrick Hand", "Comic Sans MS", "Segoe Print", cursive;
+      --hand-display: "Caveat", "Patrick Hand", "Comic Sans MS", cursive;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5vw;
+      background-color: var(--paper);
+      /* faint notebook-paper texture, drawn with CSS so there are no image requests */
+      background-image:
+        radial-gradient(var(--ink) 0.5px, transparent 0.5px),
+        radial-gradient(var(--ink) 0.5px, var(--paper) 0.5px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+      color: var(--ink);
+      font-family: var(--hand);
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+    }
+
+    /* lighten the dot grid so it reads as subtle texture, not loud polka dots */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: var(--paper);
+      opacity: 0.92;
+      z-index: -1;
+    }
+
+    .card {
+      position: relative;
+      width: 100%;
+      max-width: 32rem;
+      padding: clamp(1.75rem, 6vw, 3rem) clamp(1.5rem, 6vw, 3rem) clamp(2rem, 7vw, 3.25rem);
+      text-align: center;
+      background: var(--paper);
+      /* lopsided radii = hand-drawn "wobbly" rounded box */
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+      border: 3px solid var(--ink);
+      box-shadow: 6px 7px 0 rgba(43, 43, 43, 0.12);
+    }
+
+    h1 {
+      margin: 0 0 1.4rem;
+      font-family: var(--hand-display);
+      font-weight: 700;
+      line-height: 1.12;
+      font-size: clamp(1.9rem, 7.5vw, 3rem);
+    }
+
+    /* click-to-reveal hint */
+    .hint {
+      margin: 0 auto;
+      max-width: 24rem;
+    }
+
+    .hint > summary {
+      list-style: none;            /* hide default triangle (standards) */
+      cursor: pointer;
+      display: inline-block;
+      padding: 0.45em 1.1em;
+      font-size: clamp(1.05rem, 4.5vw, 1.35rem);
+      color: var(--accent);
+      border: 2.5px dashed var(--accent);
+      /* wobbly hand-drawn pill */
+      border-radius: 130px 16px 120px 16px / 16px 110px 16px 130px;
+      transition: transform 0.12s ease;
+      user-select: none;
+    }
+
+    .hint > summary::-webkit-details-marker { display: none; }  /* hide triangle (WebKit) */
+
+    .hint > summary:hover,
+    .hint > summary:focus-visible { transform: rotate(-1.2deg) scale(1.03); }
+
+    .hint[open] > summary { display: none; }   /* swap the prompt out once revealed */
+
+    .clover {
+      display: block;
+      width: clamp(110px, 38vw, 180px);
+      height: auto;
+      margin: 0.5rem auto 0;
+      animation: sway 3s ease-in-out infinite;
+      transform-origin: 50% 100%;
+    }
+
+    @keyframes sway {
+      0%, 100% { transform: rotate(-3deg); }
+      50%      { transform: rotate(3deg); }
+    }
+
+    /* honour users who prefer no motion */
+    @media (prefers-reduced-motion: reduce) {
+      .clover { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>your last stop might seem Trivial as you've been there before</h1>
+
+    <details class="hint">
+      <summary>Need a hint?</summary>
+      <!-- Hand-drawn four-leaf clover -->
+      <svg class="clover" viewBox="0 0 100 116" role="img" aria-label="A four-leaf clover">
+        <!-- stem -->
+        <path d="M50 54 C 53 74 48 92 50 112" fill="none"
+              stroke="var(--clover-ink)" stroke-width="5" stroke-linecap="round"/>
+        <!-- four heart-shaped leaves, tip at centre (50,50), rotated to the diagonals -->
+        <g fill="var(--clover)" stroke="var(--clover-ink)" stroke-width="3" stroke-linejoin="round">
+          <path d="M50 50 C 35 24 14 34 25 17 C 31 8 45 13 50 27 C 55 13 69 8 75 17 C 86 34 65 24 50 50 Z" transform="rotate(45 50 50)"/>
+          <path d="M50 50 C 35 24 14 34 25 17 C 31 8 45 13 50 27 C 55 13 69 8 75 17 C 86 34 65 24 50 50 Z" transform="rotate(135 50 50)"/>
+          <path d="M50 50 C 35 24 14 34 25 17 C 31 8 45 13 50 27 C 55 13 69 8 75 17 C 86 34 65 24 50 50 Z" transform="rotate(225 50 50)"/>
+          <path d="M50 50 C 35 24 14 34 25 17 C 31 8 45 13 50 27 C 55 13 69 8 75 17 C 86 34 65 24 50 50 Z" transform="rotate(315 50 50)"/>
+        </g>
+      </svg>
+    </details>
+  </main>
+</body>
+</html>
